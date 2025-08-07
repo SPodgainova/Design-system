@@ -2,11 +2,11 @@ import { type FormEvent } from "react";
 
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+import ImageUploader from "../Button/ImageUploader/ImageUploader";
+
+import useForm from "../../hooks/useForm";
 
 import styles from "./styles.module.scss";
-import useForm from "../../hooks/useForm";
-import ImageUploader from "../Button/ImageUploader/ImageUploader";
-import FloatingInput from "../Float/FloatInput";
 
 export const Form = () => {
   const { formData, handleChange, resetForm } = useForm({
@@ -25,15 +25,11 @@ export const Form = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <FloatingInput
-        label="Ссылка на товар"
-        value={formData.link}
-        onChange={() => { }}
-      />
       <Input
         name="link"
         type="text"
         value={formData.link}
+        placeholder="Ссылка на товар"
         onChange={handleChange}
       />
       <div className={styles.wrapper}>

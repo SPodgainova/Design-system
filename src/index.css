@@ -6,7 +6,8 @@ body {
   background-color: #353535;
   margin: 0px auto;
   min-height: 100vh;
-  color: var(--color-primary);
+  color: var(--color-text-primary);
+  font-size: 14px;
 }
 
 /* Reset and base styles  */

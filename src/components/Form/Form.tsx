@@ -8,6 +8,14 @@ import useForm from "../../hooks/useForm";
 import styles from "./styles.module.scss";
 import FloatInput from "../FloatInput/FloatInput";
 
+
+// to Do
+// добавить в инпуты X
+// в инпут с ссылкой на товар добавть копирование и удаление
+// для описания и заметок поменять инпут на textarea
+// name - обязательное
+// добавить кнопки для ведомостей, проекта
+
 export const Form = () => {
   const { formData, handleChange, resetForm } = useForm({
     link: "",

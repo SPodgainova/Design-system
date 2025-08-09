@@ -14,8 +14,7 @@ const FloatInput = memo(
   }: IFloatInputProps<TData>) => {
     return (
       <div className={styles.inputWrapper}>
-        <input
-          required
+        <input          
           value={value}
           name={name}
           type={type}

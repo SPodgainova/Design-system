@@ -6,5 +6,12 @@
   width: fit-content;
   border-radius: 12px;
   padding: 10px 20px;
-  background: #8b54ff;
+
+  &.clear {
+    background: transparent;
+  }
+
+  &.submit {
+    background: #8b54ff;
+  }
 }

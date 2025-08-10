@@ -22,6 +22,7 @@ const FloatInput = memo(
           placeholder=" "
         />
         <label>{label}</label>
+        {(value !== null  && value !== undefined && value.trim() !== '') && (<button>X</button>)}
       </div>
     );
   }

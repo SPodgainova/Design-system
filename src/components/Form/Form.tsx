@@ -8,7 +8,6 @@ import useForm from "../../hooks/useForm";
 import styles from "./styles.module.scss";
 import FloatInput from "../FloatInput/FloatInput";
 
-
 // to Do
 // добавить в инпуты X
 // в инпут с ссылкой на товар добавть копирование и удаление
@@ -75,7 +74,7 @@ export const Form = () => {
         label="Добавьте заметку"
         onChange={handleChange}
       />
-      <Button>Добавить</Button>
+      <Button variant="submit">Добавить</Button>
     </form>
   );
 };

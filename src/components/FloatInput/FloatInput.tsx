@@ -1,9 +1,12 @@
 // FloatingInput.tsx
 import { memo } from "react";
-import styles from "./styles.module.scss";
-import type { TData } from "../Form/type";
-import type { IFloatInputProps } from "./type";
+
 import Button from "../Button/Button";
+
+import styles from "./styles.module.scss";
+
+import type { IFloatInputProps } from "./type";
+import type { TData } from "../Form/type";
 
 const FloatInput = memo(
   ({
@@ -12,11 +15,11 @@ const FloatInput = memo(
     type = "text",
     label = "",
     onChange,
-    onClear
+    onClear,
   }: IFloatInputProps<TData>) => {
     return (
       <div className={styles.inputWrapper}>
-        <input          
+        <input
           value={value}
           name={name}
           type={type}
@@ -24,7 +27,9 @@ const FloatInput = memo(
           placeholder=" "
         />
         <label>{label}</label>
-        {(value !== null  && value !== undefined && value.trim() !== '') && (<Button variant="clear" onClick={onClear}/>)}
+        {value !== null && value !== undefined && value.trim() !== "" && (
+          <Button variant="clear" onClick={onClear} />
+        )}
       </div>
     );
   }

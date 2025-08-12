@@ -1,16 +1,14 @@
 import { type FormEvent } from "react";
 
-import Button from "../Button/Button";
-
 import useForm from "../../hooks/useForm";
 
-import styles from "./styles.module.scss";
+import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
+import styles from "./styles.module.scss";
+
 // to Do
-
-
 // для описания и заметок поменять инпут на textarea
 // name - обязательное
 // добавить кнопки для ведомостей, проекта

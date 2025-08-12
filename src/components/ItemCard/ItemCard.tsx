@@ -1,6 +1,6 @@
-import type { TData } from "../Form/type";
-
 import styles from './style.module.scss'
+
+import type { TData } from "../Form/type";
 
 const ItemCard = (item: TData) => {
   return (

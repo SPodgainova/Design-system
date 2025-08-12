@@ -1,15 +1,22 @@
 import { type FormEvent } from "react";
 
 import Button from "../Button/Button";
-import Input from "../Input/Input";
-import ImageUploader from "../Button/ImageUploader/ImageUploader";
 
 import useForm from "../../hooks/useForm";
 
 import styles from "./styles.module.scss";
+import FloatInput from "../FloatInput/FloatInput";
+import ImageUploader from "../ImageUploader/ImageUploader";
+
+// to Do
+
+
+// для описания и заметок поменять инпут на textarea
+// name - обязательное
+// добавить кнопки для ведомостей, проекта
 
 export const Form = () => {
-  const { formData, handleChange, resetForm } = useForm({
+  const { formData, handleChange, clearField, resetForm } = useForm({
     link: "",
     image: "",
     name: "",
@@ -25,49 +32,54 @@ export const Form = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <Input
+      <FloatInput
         name="link"
-        type="text"
+        type="url"
         value={formData.link}
-        placeholder="Ссылка на товар"
+        label="Введите ссылку"
         onChange={handleChange}
+        onClear={() => clearField("link")}
       />
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader />
-          <Input
+          <FloatInput
             name="image"
             type="text"
             value={formData.image}
-            placeholder="Ссылка на изображение"
+            label="Ссылка на изображение"
             onChange={handleChange}
+            onClear={() => clearField("image")}
           />
         </div>
         <div className={styles.inputsWrapper}>
-          <Input
+          <FloatInput
             name="name"
             type="text"
             value={formData.name}
-            placeholder="Название товара"
+            label="Введите название"
             onChange={handleChange}
+            onClear={() => clearField("name")}
           />
-          <Input
+          <FloatInput
             name="description"
             type="text"
             value={formData.description}
-            placeholder="Описание товара"
+            label="Введите описание"
             onChange={handleChange}
+            onClear={() => clearField("description")}
           />
         </div>
       </div>
-      <Input
+      <FloatInput
         name="notes"
         type="text"
         value={formData.notes}
-        placeholder="Добавьте заметку"
+        label="Добавьте заметку"
         onChange={handleChange}
+        onClear={() => clearField("notes")}
       />
-      <Button>Добавить</Button>
+      <Button variant="submit">Добавить</Button>
     </form>
   );
 };

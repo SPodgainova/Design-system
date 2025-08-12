@@ -13,11 +13,18 @@ const useForm = <T extends Record<string, string | number | boolean>>(
     }));
   };
 
+  const clearField = (field: keyof T) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: "",
+    }));
+  };
+
   const resetForm = () => {
     setFormData(initialState);
   };
 
-  return { formData, handleChange, resetForm };
+  return { formData, handleChange, clearField, resetForm };
 };
 
 export default useForm;

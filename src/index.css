@@ -6,7 +6,9 @@ body {
   background-color: #353535;
   margin: 0px auto;
   min-height: 100vh;
-  color: var(--color-primary);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  overflow: scroll;
 }
 
 /* Reset and base styles  */
@@ -131,6 +133,7 @@ input[type="file"] {
   max-width: 100%;
 }
 
-input:focus, input:not([value=""]) {
+input:focus,
+input:not([value=""]) {
   background-color: transparent;
 }

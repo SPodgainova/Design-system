@@ -1,13 +1,15 @@
 :root {
   /* Цвета */
-  --color-primary: #ffffff;
-  --color-secondary: #7c3aed;
+  --color-primary: #ffffff; 
   --color-accent: #8b54ff;
-  --color-text: #1f2937;
+  --color-text-primary: #ffffff;
   --color-light-grey: #757575;
 
-  --bg-color-dark: #474747;
-  --bg-color-light: #ffffff;
+  --bg-main-dark: #353535;
+  --bg-main-light: #ffffff;
+  --bg-block-dark: #474747;
+  --bg-block-light: #ffffff;
+
 
   /* Отступы */
   --block-pd: 32px;

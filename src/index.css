@@ -133,6 +133,7 @@ input[type="file"] {
   max-width: 100%;
 }
 
-input:focus, input:not([value=""]) {
+input:focus,
+input:not([value=""]) {
   background-color: transparent;
 }

@@ -1,22 +1,22 @@
 import { type FormEvent } from "react";
 
 import Button from "../Button/Button";
-import ImageUploader from "../Button/ImageUploader/ImageUploader";
 
 import useForm from "../../hooks/useForm";
 
 import styles from "./styles.module.scss";
 import FloatInput from "../FloatInput/FloatInput";
+import ImageUploader from "../ImageUploader/ImageUploader";
 
 // to Do
-// добавить в инпуты X
-// в инпут с ссылкой на товар добавть копирование и удаление
+
+
 // для описания и заметок поменять инпут на textarea
 // name - обязательное
 // добавить кнопки для ведомостей, проекта
 
 export const Form = () => {
-  const { formData, handleChange, resetForm } = useForm({
+  const { formData, handleChange, clearField, resetForm } = useForm({
     link: "",
     image: "",
     name: "",
@@ -38,6 +38,7 @@ export const Form = () => {
         value={formData.link}
         label="Введите ссылку"
         onChange={handleChange}
+        onClear={() => clearField("link")}
       />
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
@@ -48,6 +49,7 @@ export const Form = () => {
             value={formData.image}
             label="Ссылка на изображение"
             onChange={handleChange}
+            onClear={() => clearField("image")}
           />
         </div>
         <div className={styles.inputsWrapper}>
@@ -57,6 +59,7 @@ export const Form = () => {
             value={formData.name}
             label="Введите название"
             onChange={handleChange}
+            onClear={() => clearField("name")}
           />
           <FloatInput
             name="description"
@@ -64,6 +67,7 @@ export const Form = () => {
             value={formData.description}
             label="Введите описание"
             onChange={handleChange}
+            onClear={() => clearField("description")}
           />
         </div>
       </div>
@@ -73,6 +77,7 @@ export const Form = () => {
         value={formData.notes}
         label="Добавьте заметку"
         onChange={handleChange}
+        onClear={() => clearField("notes")}
       />
       <Button variant="submit">Добавить</Button>
     </form>

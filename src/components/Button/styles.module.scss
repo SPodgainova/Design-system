@@ -9,6 +9,10 @@
 
   &.clear {
     background: transparent;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    transform: translateY(50%);
   }
 
   &.submit {

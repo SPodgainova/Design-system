@@ -3,6 +3,7 @@ import { memo } from "react";
 import styles from "./styles.module.scss";
 import type { TData } from "../Form/type";
 import type { IFloatInputProps } from "./type";
+import Button from "../Button/Button";
 
 const FloatInput = memo(
   ({
@@ -11,6 +12,7 @@ const FloatInput = memo(
     type = "text",
     label = "",
     onChange,
+    onClear
   }: IFloatInputProps<TData>) => {
     return (
       <div className={styles.inputWrapper}>
@@ -22,7 +24,7 @@ const FloatInput = memo(
           placeholder=" "
         />
         <label>{label}</label>
-        {(value !== null  && value !== undefined && value.trim() !== '') && (<button>X</button>)}
+        {(value !== null  && value !== undefined && value.trim() !== '') && (<Button variant="clear" onClick={onClear}/>)}
       </div>
     );
   }

@@ -5,6 +5,8 @@ import type { IButtonProps } from "./type";
 
 import styles from "./styles.module.scss";
 
+import CloseIcon from "../CloseIcon/CloseIcon";
+
 const Button = memo(({ children, onClick, variant }: IButtonProps) => {
   const buttonClass = cl(styles.button, {
     [styles.submit]: variant === "submit",
@@ -13,7 +15,7 @@ const Button = memo(({ children, onClick, variant }: IButtonProps) => {
 
   return (
     <button className={buttonClass} onClick={onClick}>
-      {/* {variant === "copy" && } */}
+      {variant === "clear" && <CloseIcon />}
       {children}
     </button>
   );

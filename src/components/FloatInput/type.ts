@@ -4,5 +4,6 @@ export interface IFloatInputProps<T extends object> {
   type: "text" | "number" | "url";
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear: () => void;
   required?: boolean;
 }

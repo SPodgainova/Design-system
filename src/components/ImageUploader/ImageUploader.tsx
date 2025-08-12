@@ -1,4 +1,5 @@
-import useImageUpload from "../../../hooks/useImageUpload";
+
+import useImageUpload from "../../hooks/useImageUpload";
 import styles from "./styles.module.scss";
 
 const ImageUploader = () => {

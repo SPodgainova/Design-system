@@ -10,6 +10,7 @@
     transition: 0.3s;
     transform: translateY(-50%);
     pointer-events: none;
+    
   }
 
   & input {
@@ -20,7 +21,7 @@
     color: var(--color-text-primary);
     font-size: 14px;
     inline-size: 100%;
-    block-size: 50px;
+    block-size: 50px;    
   }
 
   & input:focus ~ label,

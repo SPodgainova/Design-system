@@ -1,8 +1,9 @@
-import type { TData } from "../Form/type";
-import type { IInputProps } from "./type";
+import { memo } from "react";
 
 import styles from "./styles.module.scss";
-import { memo } from "react";
+
+import type { IInputProps } from "./type";
+import type { TData } from "../Form/type";
 
 const Input = memo(
   ({

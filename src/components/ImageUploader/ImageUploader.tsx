@@ -1,6 +1,8 @@
 
 import useImageUpload from "../../hooks/useImageUpload";
+
 import LoadIcon from "../LoadIcon/LoadIcon";
+
 import styles from "./styles.module.scss";
 
 const ImageUploader = () => {

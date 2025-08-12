@@ -1,8 +1,10 @@
-import ItemCard from "../ItemCard/ItemCard";
 import { v4 as uuidv4 } from "uuid";
-import type { IItemsListProps } from "./type";
+
+import ItemCard from "../ItemCard/ItemCard";
 
 import styles from './styles.module.scss'
+
+import type { IItemsListProps } from "./type";
 
 export const ItemsList = ({ items }: IItemsListProps) => {
   return (

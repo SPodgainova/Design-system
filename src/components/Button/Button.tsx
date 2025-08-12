@@ -1,11 +1,11 @@
-import { memo } from "react";
 import cl from "classnames";
+import { memo } from "react";
 
-import type { IButtonProps } from "./type";
+import CloseIcon from "../CloseIcon/CloseIcon";
 
 import styles from "./styles.module.scss";
 
-import CloseIcon from "../CloseIcon/CloseIcon";
+import type { IButtonProps } from "./type";
 
 const Button = memo(({ children, onClick, variant }: IButtonProps) => {
   const buttonClass = cl(styles.button, {

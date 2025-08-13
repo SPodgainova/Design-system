@@ -30,6 +30,7 @@ const useImageUpload = () => {
   const getPreviewUrl = () => {
     if (file) return URL.createObjectURL(file);
     if (fileUrl) return fileUrl;
+    console.log(fileUrl);
     return null;
   };
 
@@ -38,7 +39,7 @@ const useImageUpload = () => {
     setFile(null);
     setError("");
     // console.log(url);
-    console.log(fileUrl);
+    // console.log(fileUrl);
   };
 
   const clearImageState = () => {

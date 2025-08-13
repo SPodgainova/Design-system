@@ -1,4 +1,4 @@
-import { type FormEvent } from "react";
+import { type ChangeEvent, type FormEvent } from "react";
 
 import useForm from "../../hooks/useForm";
 
@@ -7,6 +7,8 @@ import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 import styles from "./styles.module.scss";
+import type { TData } from "./type";
+import useImageUpload from "../../hooks/useImageUpload";
 
 // to Do
 // для описания и заметок поменять инпут на textarea
@@ -14,7 +16,7 @@ import styles from "./styles.module.scss";
 // добавить кнопки для ведомостей, проекта
 
 export const Form = () => {
-  const { formData, handleChange, clearField, resetForm } = useForm({
+  const { formData, handleChange, clearField, resetForm } = useForm<TData>({
     link: "",
     image: "",
     name: "",
@@ -22,10 +24,19 @@ export const Form = () => {
     notes: "",
   });
 
+  const { handleUrlChange, clearImageState } = useImageUpload();
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;    
+    handleChange(e);
+    handleUrlChange(value);
+  };
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     console.log(formData);
     resetForm();
+    clearImageState();
   }
 
   return (
@@ -46,7 +57,7 @@ export const Form = () => {
             type="text"
             value={formData.image}
             label="Ссылка на изображение"
-            onChange={handleChange}
+            onChange={handleImageChange}
             onClear={() => clearField("image")}
           />
         </div>

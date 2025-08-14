@@ -5,7 +5,7 @@ import LoadIcon from "../LoadIcon/LoadIcon";
 
 import styles from "./styles.module.scss";
 
-const ImageUploader = () => {
+const ImageUploader = ({prewiewURL,}) => {
   const { file, handleChangeFile, getPreviewUrl } = useImageUpload();
   return (
     <>

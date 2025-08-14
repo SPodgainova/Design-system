@@ -39,7 +39,7 @@ const useImageUpload = () => {
     setFile(null);
     setError("");
     // console.log(url);
-    // console.log(fileUrl);
+    console.log(fileUrl);
   };
 
   const clearImageState = () => {

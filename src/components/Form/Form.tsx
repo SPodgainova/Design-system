@@ -14,6 +14,7 @@ import useImageUpload from "../../hooks/useImageUpload";
 // для описания и заметок поменять инпут на textarea
 // name - обязательное
 // добавить кнопки для ведомостей, проекта
+// валидация
 
 export const Form = () => {
   const { formData, handleChange, clearField, resetForm } = useForm<TData>({
@@ -24,12 +25,19 @@ export const Form = () => {
     notes: "",
   });
 
-  const { handleUrlChange, clearImageState } = useImageUpload();
+  const {
+    file,
+    fileUrl,
+    handleChangeFile,
+    clearImageState,
+    getPreviewUrl,
+    handleUrlChange,
+    error,
+  } = useImageUpload();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;    
     handleChange(e);
-    handleUrlChange(value);
+    handleUrlChange(e.target.value);
   };
 
   function handleSubmit(e: FormEvent) {

@@ -1,4 +1,4 @@
-import { type FormEvent } from "react";
+import { type ChangeEvent, type FormEvent } from "react";
 
 import useForm from "../../hooks/useForm";
 
@@ -7,14 +7,23 @@ import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 import styles from "./styles.module.scss";
+import type { TData } from "./type";
+import useImageUpload from "../../hooks/useImageUpload";
 
 // to Do
 // для описания и заметок поменять инпут на textarea
-// name - обязательное
 // добавить кнопки для ведомостей, проекта
+// драг дроп для аплоадера
+// валидация :
+// name 1 символ*
+// вес файла
+// ссылки (регулярки + конец ссылки для картинки)
+// кол-во сиволов в текстареа
+// кол-во сиволов в инпутах
+// вывод ошибки
 
 export const Form = () => {
-  const { formData, handleChange, clearField, resetForm } = useForm({
+  const { formData, handleChange, clearField, resetForm } = useForm<TData>({
     link: "",
     image: "",
     name: "",
@@ -22,10 +31,23 @@ export const Form = () => {
     notes: "",
   });
 
+  const {
+    handleChangeFile,
+    clearImageState,
+    getPreviewUrl,
+    handleUrlChange, 
+  } = useImageUpload();
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    handleUrlChange(e.target.value);
+  };
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     console.log(formData);
     resetForm();
+    clearImageState();
   }
 
   return (
@@ -40,13 +62,17 @@ export const Form = () => {
       />
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
-          <ImageUploader />
+          <ImageUploader
+            previewUrl={getPreviewUrl()}
+            onChange={handleChangeFile}
+            onClick={clearImageState}
+          />
           <FloatInput
             name="image"
             type="text"
             value={formData.image}
             label="Ссылка на изображение"
-            onChange={handleChange}
+            onChange={handleImageChange}
             onClear={() => clearField("image")}
           />
         </div>

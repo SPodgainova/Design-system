@@ -6,6 +6,10 @@ import styles from './styles.module.scss'
 
 import type { IItemsListProps } from "./type";
 
+
+// to do
+// 
+
 export const ItemsList = ({ items }: IItemsListProps) => {
   return (
     <ul className={styles.list}>

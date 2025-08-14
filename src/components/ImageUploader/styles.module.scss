@@ -16,10 +16,17 @@
   }
 }
 
+.containerWithFile {
+  border: none;
+  background-color: var(--bg-block-dark);
+  z-index: 9999;
+}
+
 .textBlock {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 20px;
   text-align: center;
 }
 
@@ -27,8 +34,6 @@
   color: var(--color-light-grey);
   font-size: 12px;
 }
-
-
 
 .input {
   position: absolute;
@@ -38,4 +43,15 @@
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hidden {
+  opacity: 0;
+  transition: .3s;
 }

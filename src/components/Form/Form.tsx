@@ -69,7 +69,7 @@ export const Form = () => {
           />
           <FloatInput
             name="image"
-            type="text"
+            type="url"
             value={formData.image}
             label="Ссылка на изображение"
             onChange={handleImageChange}

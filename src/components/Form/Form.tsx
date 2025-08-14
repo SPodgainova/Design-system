@@ -12,9 +12,14 @@ import useImageUpload from "../../hooks/useImageUpload";
 
 // to Do
 // для описания и заметок поменять инпут на textarea
-// name - обязательное
 // добавить кнопки для ведомостей, проекта
-// валидация
+// драг дроп для аплоадера
+// валидация :
+    // name 1 символ*
+    // вес файла
+    // ссылки (регулярки + конец ссылки для картинки)
+    // кол-во сиволов в текстареа
+    // кол-во сиволов в инпутах
 
 export const Form = () => {
   const { formData, handleChange, clearField, resetForm } = useForm<TData>({

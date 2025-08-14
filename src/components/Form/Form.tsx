@@ -15,11 +15,12 @@ import useImageUpload from "../../hooks/useImageUpload";
 // добавить кнопки для ведомостей, проекта
 // драг дроп для аплоадера
 // валидация :
-    // name 1 символ*
-    // вес файла
-    // ссылки (регулярки + конец ссылки для картинки)
-    // кол-во сиволов в текстареа
-    // кол-во сиволов в инпутах
+// name 1 символ*
+// вес файла
+// ссылки (регулярки + конец ссылки для картинки)
+// кол-во сиволов в текстареа
+// кол-во сиволов в инпутах
+// вывод ошибки
 
 export const Form = () => {
   const { formData, handleChange, clearField, resetForm } = useForm<TData>({
@@ -31,13 +32,10 @@ export const Form = () => {
   });
 
   const {
-    file,
-    fileUrl,
     handleChangeFile,
     clearImageState,
     getPreviewUrl,
-    handleUrlChange,
-    error,
+    handleUrlChange, 
   } = useImageUpload();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +62,11 @@ export const Form = () => {
       />
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
-          <ImageUploader />
+          <ImageUploader
+            previewUrl={getPreviewUrl()}
+            onChange={handleChangeFile}
+            onClick={clearImageState}
+          />
           <FloatInput
             name="image"
             type="text"

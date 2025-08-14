@@ -37,8 +37,7 @@ const useImageUpload = () => {
   const handleUrlChange = (url: string) => {
     setFileUrl(url);
     setFile(null);
-    setError("");
-    // console.log(url);
+    setError("");    
     console.log(fileUrl);
   };
 

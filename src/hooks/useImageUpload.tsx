@@ -30,15 +30,13 @@ const useImageUpload = () => {
   const getPreviewUrl = () => {
     if (file) return URL.createObjectURL(file);
     if (fileUrl) return fileUrl;
-    console.log(fileUrl);
     return null;
   };
 
   const handleUrlChange = (url: string) => {
     setFileUrl(url);
     setFile(null);
-    setError("");    
-    console.log(fileUrl);
+    setError("");
   };
 
   const clearImageState = () => {

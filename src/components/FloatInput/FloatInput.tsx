@@ -25,6 +25,12 @@ const FloatInput = memo(
           type={type}
           onChange={onChange}
           placeholder=" "
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              e.currentTarget.blur();
+            }
+          }}
         />
         <label>{label}</label>
         {value !== null && value !== undefined && value.trim() !== "" && (

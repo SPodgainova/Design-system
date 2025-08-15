@@ -1,14 +1,11 @@
-import { type ChangeEvent, type FormEvent } from "react";
-
-import useForm from "../../hooks/useForm";
-
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 import styles from "./styles.module.scss";
 import type { TData } from "./type";
-import useImageUpload from "../../hooks/useImageUpload";
+
+import useFormWithImg from "../../hooks/useFormWithImg";
 
 // to Do
 // для описания и заметок поменять инпут на textarea
@@ -23,32 +20,23 @@ import useImageUpload from "../../hooks/useImageUpload";
 // вывод ошибки
 
 export const Form = () => {
-  const { formData, handleChange, clearField, resetForm } = useForm<TData>({
+  const {
+    formData,
+    handleChange,
+    clearField,
+    handleSubmit,
+    handleChangeFile,
+    handleImageChange,
+    clearImageState,
+    getPreviewUrl,
+    handleImageDelete,
+  } = useFormWithImg<TData>({
     link: "",
     image: "",
     name: "",
     description: "",
     notes: "",
   });
-
-  const {
-    handleChangeFile,
-    clearImageState,
-    getPreviewUrl,
-    handleUrlChange, 
-  } = useImageUpload();
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-    handleUrlChange(e.target.value);
-  };
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    console.log(formData);
-    resetForm();
-    clearImageState();
-  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -65,7 +53,7 @@ export const Form = () => {
           <ImageUploader
             previewUrl={getPreviewUrl()}
             onChange={handleChangeFile}
-            onClick={clearImageState}
+            onClick={handleImageDelete}
           />
           <FloatInput
             name="image"

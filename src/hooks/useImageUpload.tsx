@@ -27,16 +27,39 @@ const useImageUpload = () => {
     }
   };
 
+  const handleUrlChange = (url: string) => {
+    try {
+      const parsedUrl = new URL(url);
+
+      const imageExtensions = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".webp",
+        ".svg",
+      ];
+      const extension = parsedUrl.pathname.toLowerCase();
+      const isImage = imageExtensions.some((ext) => extension.endsWith(ext));
+
+      if (isImage) {
+        setFileUrl(url);
+        setFile(null);
+        setError("");
+      } else {
+        setError("Ссылка должна вести на изображение (jpg/png/gif/webp/svg)");
+        setFileUrl(null);
+      }
+    } catch (e) {
+      setError("Некорректный URL");
+      setFileUrl(null);
+    }
+  };
+
   const getPreviewUrl = () => {
     if (file) return URL.createObjectURL(file);
     if (fileUrl) return fileUrl;
     return null;
-  };
-
-  const handleUrlChange = (url: string) => {
-    setFileUrl(url);
-    setFile(null);
-    setError("");
   };
 
   const clearImageState = () => {

@@ -26,8 +26,7 @@ export const Form = () => {
     clearField,
     handleSubmit,
     handleChangeFile,
-    handleImageChange,
-    clearImageState,
+    handleImageChange,  
     getPreviewUrl,
     handleImageDelete,
   } = useFormWithImg<TData>({

@@ -1,3 +1,4 @@
+import { imageRules, linkRules, nameRules } from "../../validationRules";
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
@@ -36,16 +37,7 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <Controller name="link" control={control} rules={{
-        validate: (value) => {
-          if (!value) return true;
-          try {
-            new URL(value);
-            return true
-          }
-          catch {
-            return "Введите корректный URL"
-          }
-        }
+        validate: linkRules
       }} render={({ field, fieldState }) => <FloatInput {...field} label="Ссылка" error={fieldState.error?.message} onClear={() => {
         resetField('link')
       }} />} />
@@ -58,28 +50,7 @@ export const Form = () => {
             onClear={() => resetField("image")}
           />
           <Controller name="image" control={control} rules={{
-            validate: (value) => {
-              if (!value) return true;
-              try {
-                const parsedUrl = new URL(value);
-                const imageExtensions = [
-                  ".jpg",
-                  ".jpeg",
-                  ".png",
-                  ".gif",
-                  ".webp",
-                  ".svg",
-                ];
-
-                const extension = parsedUrl.pathname.toLowerCase();
-                const isImage = imageExtensions.some((ext) => extension.endsWith(ext));
-                if (isImage) return true
-                return "Ссылка должна вести на изображение"
-              }
-              catch {
-                return "Введите корректный URL"
-              }
-            }
+            validate:  imageRules
           }} render={({ field, fieldState }) => (
             <FloatInput {...field} label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
           )} />
@@ -93,7 +64,7 @@ export const Form = () => {
           /> */}
         </div>
         <div className={styles.inputsWrapper}>
-          <Controller name="name" control={control} rules={{ required: { value: true, message: "Введите минимум 1 символ" }, minLength: 1 }} render={({ field, fieldState }) => <FloatInput {...field} label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
+          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
           {/* <FloatInput
             name="description"           
             value={formData.description}

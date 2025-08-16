@@ -1,4 +1,4 @@
-import { imageRules, linkRules, nameRules } from "../../validationRules";
+
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
@@ -7,9 +7,10 @@ import styles from "./styles.module.scss";
 import type { IItemsForm } from "./type";
 
 import { Controller, useForm, type SubmitHandler } from "react-hook-form"
+import { descriptionRules, imageRules, linkRules, nameRules, notesRules } from "./validationItemsRules";
 
 // to Do
-// для описания и заметок поменять инпут на textarea
+
 // добавить кнопки для ведомостей, проекта
 // драг дроп для аплоадера
 // валидация :
@@ -42,7 +43,7 @@ export const Form = () => {
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <Controller name="link" control={control} rules={{
         validate: linkRules
-      }} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Ссылка" error={fieldState.error?.message} onClear={() => {
+      }} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Ссылка на товар" error={fieldState.error?.message} onClear={() => {
         resetField('link')
       }} />} />
       <div className={styles.wrapper}>
@@ -60,11 +61,11 @@ export const Form = () => {
         </div>
         <div className={styles.inputsWrapper}>
           <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
-          <Controller name="description" control={control} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
+          <Controller name="description" control={control} rules={descriptionRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
           } />
         </div>
       </div>
-      <Controller name="notes" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Добавьте заметку" error={fieldState.error?.message} onClear={() => resetField("notes")} />} />
+      <Controller name="notes" control={control} rules={notesRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Добавьте заметку" error={fieldState.error?.message} onClear={() => resetField("notes")} />} />
       <Button variant="submit">Добавить</Button>
     </form>
   );

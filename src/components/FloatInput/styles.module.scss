@@ -6,10 +6,10 @@
     left: 12px;
     padding: 0 5px;
     color: #ffffff;
+    font-size: 14px;
+    background-color: var(--bg-block-dark);
     transition: 0.3s;
     pointer-events: none;
-    background-color: var(--bg-block-dark);
-    font-size: 14px;
   }
 
   & input ~ label {
@@ -34,14 +34,19 @@
     inline-size: 100%;
   }
 
+  & textarea {
+    font-size: 12px; 
+    overflow: hidden;   
+  }
+
   & input:focus ~ label,
   & textarea:focus ~ label,
   & input:not(:placeholder-shown) ~ label,
   & textarea:not(:placeholder-shown) ~ label {
     top: 0;
-    transform: translateY(-50%);
     color: var(--color-accent);
     font-size: 12px;
+    transform: translateY(-50%);
   }
 }
 
@@ -52,8 +57,8 @@
 
 .clearButton {
   position: absolute;
-  right: 5px;
   top: 50%;
+  right: 5px;
   transform: translateY(-50%);
 
   &.clearAreaButton {
@@ -66,5 +71,6 @@
   position: absolute;
   bottom: -20px;
   left: 10px;
-  font-size: 12px;
+  font-size: 10px;
+  color: var(--color-accent);
 }

@@ -1,11 +1,10 @@
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
-import ImageUploader from "../ImageUploader/ImageUploader";
 
 import styles from "./styles.module.scss";
-import type { TData } from "./type";
+import type { IItemsForm} from "./type";
 
-import useFormWithImg from "../../hooks/useFormWithImg";
+import { Controller, useForm, type SubmitHandler} from "react-hook-form"
 
 // to Do
 // для описания и заметок поменять инпут на textarea
@@ -20,34 +19,33 @@ import useFormWithImg from "../../hooks/useFormWithImg";
 // вывод ошибки
 
 export const Form = () => {
-  const {
-    formData,
-    handleChange,
-    clearField,
-    handleSubmit,
-    handleChangeFile,
-    handleImageChange,  
-    getPreviewUrl,
-    handleImageDelete,
-  } = useFormWithImg<TData>({
+
+  const {control, handleSubmit, resetField} = useForm<IItemsForm>({defaultValues: {
     link: "",
     image: "",
     name: "",
     description: "",
     notes: "",
-  });
+  }})
+
+  const submit : SubmitHandler<IItemsForm> = (data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <FloatInput
-        name="link"
-        type="url"
-        value={formData.link}
-        label="Введите ссылку"
-        onChange={handleChange}
-        onClear={() => clearField("link")}
-      />
-      <div className={styles.wrapper}>
+    <form onSubmit={handleSubmit(submit)} className={styles.form}>
+     <Controller name="link" control={control} rules={{validate: (value) => {
+      if(!value) return true;
+      try {
+        new URL(value);
+        return true
+      }
+      catch {
+        return "Введите корректный URL"
+      }
+     }}} render={({field, fieldState }) => <FloatInput {...field} type="text" label="Ссылка" error={fieldState.error?.message} onClear={() => {
+      resetField('link')
+     }}  />}/>
+
+      {/* <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
             previewUrl={getPreviewUrl()}
@@ -89,7 +87,7 @@ export const Form = () => {
         label="Добавьте заметку"
         onChange={handleChange}
         onClear={() => clearField("notes")}
-      />
+      /> */}
       <Button variant="submit">Добавить</Button>
     </form>
   );

@@ -1,9 +1,8 @@
-export interface IFloatInputProps<T extends object> {
-  value: string;
-  name: keyof T;
+export interface IFloatInputProps {
+  name: string;
   type: "text" | "number" | "url";
   label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClear: () => void;
-  required?: boolean;
+  value?: string;
+  onClear?: () => void;
+  error?: string;
 }

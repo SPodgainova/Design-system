@@ -2,9 +2,9 @@ import cl from "classnames";
 import LoadIcon from "../LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { memo, useEffect, useState, type ChangeEvent } from "react";
 
-const ImageUploader = ({
+const ImageUploader = memo(({
   previewUrl,
   onFileUpload,
   onClear,
@@ -82,6 +82,6 @@ const ImageUploader = ({
       )}
     </>
   );
-};
+})
 
 export default ImageUploader;

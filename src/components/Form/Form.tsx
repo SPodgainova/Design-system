@@ -13,24 +13,25 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 // драг дроп для аплоадера
 // валидация :
 // вес файла
-// ссылки (регулярки + конец ссылки для картинки)
 // кол-во сиволов в текстареа
 
 export const Form = () => {
 
-  const { control, handleSubmit, resetField, watch } = useForm<IItemsForm>({
+  const { control, handleSubmit, resetField, watch, formState: { errors } } = useForm<IItemsForm>({
     defaultValues: {
       link: "",
       image: "",
       name: "",
       description: "",
       notes: "",
-    }
+    },
+    mode: "onChange"
   })
 
   const submit: SubmitHandler<IItemsForm> = (data) => console.log(data);
 
   const imageLink = watch("image");
+  const isValidImgLink = !errors.image && imageLink; 
 
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
@@ -52,7 +53,7 @@ export const Form = () => {
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
-            previewUrl={imageLink}
+            previewUrl={isValidImgLink ? imageLink : null}
             onFileUpload={() => resetField("image")}
             onClear={() => resetField("image")}
           />
@@ -73,7 +74,7 @@ export const Form = () => {
                 const extension = parsedUrl.pathname.toLowerCase();
                 const isImage = imageExtensions.some((ext) => extension.endsWith(ext));
                 if (isImage) return true
-                return "Ссылка должна вести на изображение (jpg/png/gif/webp/svg)"
+                return "Ссылка должна вести на изображение"
               }
               catch {
                 return "Введите корректный URL"

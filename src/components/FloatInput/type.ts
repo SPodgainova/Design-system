@@ -1,6 +1,5 @@
 export interface IFloatInputProps {
-  name: string;
-  type: "text" | "number" | "url";
+  name: string;  
   label: string;
   value?: string;
   onClear?: () => void;

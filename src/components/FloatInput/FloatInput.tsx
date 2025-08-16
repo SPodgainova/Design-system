@@ -7,21 +7,12 @@ import styles from "./styles.module.scss";
 import type { IFloatInputProps } from "./type";
 
 const FloatInput = memo(
-  ({
-    name,
-    type = "text",
-    label,
-    onClear,
-    error,
-    value,
-    ...inputProps
-  }: IFloatInputProps) => {
+  ({ name, label, onClear, error, value, ...inputProps }: IFloatInputProps) => {
     return (
       <div className={styles.inputWrapper}>
         <input
           {...inputProps}
           name={name}
-          type={type}
           value={value}
           placeholder=" "
           onKeyDown={(e) => {

@@ -18,7 +18,7 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 
 export const Form = () => {
 
-  const { control, handleSubmit, resetField, watch, formState: { errors } } = useForm<IItemsForm>({
+  const { control, handleSubmit, resetField, watch, formState: { errors }, reset } = useForm<IItemsForm>({
     defaultValues: {
       link: "",
       image: "",
@@ -29,7 +29,11 @@ export const Form = () => {
     mode: "onChange"
   })
 
-  const submit: SubmitHandler<IItemsForm> = (data) => console.log(data);
+  const submit: SubmitHandler<IItemsForm> = (data) => {
+    console.log(data);
+    reset()
+
+  };
 
   const imageLink = watch("image");
   const isValidImgLink = !errors.image && imageLink; 

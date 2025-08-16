@@ -36,13 +36,19 @@ export const Form = () => {
   };
 
   const imageLink = watch("image");
-  const isValidImgLink = !errors.image && imageLink; 
+  const isValidImgLink = !errors.image && imageLink;
 
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
+      {/* <Controller name="link" control={control} rules={{
+        validate: linkRules
+      }} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Ссылка" error={fieldState.error?.message} onClear={() => {
+        resetField('link')
+      }} />} /> */}
+
       <Controller name="link" control={control} rules={{
         validate: linkRules
-      }} render={({ field, fieldState }) => <FloatInput {...field} label="Ссылка" error={fieldState.error?.message} onClear={() => {
+      }} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Ссылка" error={fieldState.error?.message} onClear={() => {
         resetField('link')
       }} />} />
 
@@ -54,9 +60,9 @@ export const Form = () => {
             onClear={() => resetField("image")}
           />
           <Controller name="image" control={control} rules={{
-            validate:  imageRules
+            validate: imageRules
           }} render={({ field, fieldState }) => (
-            <FloatInput {...field} label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
+            <FloatInput {...field} variant="input" label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
           )} />
           {/* <FloatInput
             name="image"
@@ -68,7 +74,7 @@ export const Form = () => {
           /> */}
         </div>
         <div className={styles.inputsWrapper}>
-          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
+          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
           {/* <FloatInput
             name="description"           
             value={formData.description}

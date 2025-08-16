@@ -8,12 +8,8 @@
   padding: 10px 20px;
 
   &.clear {
-    background: transparent;
     padding: 0;
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+    background: transparent;
   }
 
   &.submit {

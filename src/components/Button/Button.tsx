@@ -7,18 +7,24 @@ import styles from "./styles.module.scss";
 
 import type { IButtonProps } from "./type";
 
-const Button = memo(({ children, onClick, variant }: IButtonProps) => {
-  const buttonClass = cl(styles.button, {
-    [styles.submit]: variant === "submit",
-    [styles.clear]: variant === "clear",
-  });
+const Button = memo(
+  ({ children, onClick, variant, className }: IButtonProps) => {
+    const buttonClass = cl(
+      styles.button,
+      {
+        [styles.submit]: variant === "submit",
+        [styles.clear]: variant === "clear",
+      },
+      className
+    );
 
-  return (
-    <button className={buttonClass} onClick={onClick}>
-      {variant === "clear" && <CloseIcon />}
-      {children}
-    </button>
-  );
-});
+    return (
+      <button className={buttonClass} onClick={onClick}>
+        {variant === "clear" && <CloseIcon />}
+        {children}
+      </button>
+    );
+  }
+);
 
 export default Button;

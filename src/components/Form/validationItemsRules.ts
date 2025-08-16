@@ -1,5 +1,5 @@
 import type { RegisterOptions } from "react-hook-form";
-import type { IItemsForm } from "./components/Form/type";
+import type { IItemsForm } from "./type";
 
 const nameRules: RegisterOptions<IItemsForm, "name"> = {
   required: {
@@ -40,4 +40,18 @@ const imageRules: RegisterOptions<IItemsForm, "image">["validate"] = (
   }
 };
 
-export { nameRules, imageRules, linkRules };
+const descriptionRules: RegisterOptions<IItemsForm, "description"> = {
+  maxLength: {
+    value: 200,
+    message: "Не более 200 символов",
+  },
+};
+
+const notesRules: RegisterOptions<IItemsForm, "notes"> = {
+  maxLength: {
+    value: 400,
+    message: "Не более 500 символов",
+  },
+};
+
+export { nameRules, imageRules, linkRules, descriptionRules, notesRules };

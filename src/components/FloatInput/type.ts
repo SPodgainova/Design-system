@@ -1,5 +1,6 @@
 export interface IFloatInputProps {
-  name: string;  
+  variant: "input" | "textarea";
+  name: string;
   label: string;
   value?: string;
   onClear?: () => void;

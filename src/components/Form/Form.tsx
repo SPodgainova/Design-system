@@ -1,4 +1,4 @@
-import { imageRules, linkRules, nameRules } from "../../validationRules";
+
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
@@ -7,9 +7,10 @@ import styles from "./styles.module.scss";
 import type { IItemsForm } from "./type";
 
 import { Controller, useForm, type SubmitHandler } from "react-hook-form"
+import { descriptionRules, imageRules, linkRules, nameRules, notesRules } from "./validationItemsRules";
 
 // to Do
-// для описания и заметок поменять инпут на textarea
+
 // добавить кнопки для ведомостей, проекта
 // драг дроп для аплоадера
 // валидация :
@@ -36,16 +37,15 @@ export const Form = () => {
   };
 
   const imageLink = watch("image");
-  const isValidImgLink = !errors.image && imageLink; 
+  const isValidImgLink = !errors.image && imageLink;
 
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <Controller name="link" control={control} rules={{
         validate: linkRules
-      }} render={({ field, fieldState }) => <FloatInput {...field} label="Ссылка" error={fieldState.error?.message} onClear={() => {
+      }} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Ссылка на товар" error={fieldState.error?.message} onClear={() => {
         resetField('link')
       }} />} />
-
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
@@ -54,37 +54,18 @@ export const Form = () => {
             onClear={() => resetField("image")}
           />
           <Controller name="image" control={control} rules={{
-            validate:  imageRules
+            validate: imageRules
           }} render={({ field, fieldState }) => (
-            <FloatInput {...field} label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
+            <FloatInput {...field} variant="input" label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
           )} />
-          {/* <FloatInput
-            name="image"
-            type="url"
-            value={formData.image}
-            label="Ссылка на изображение"
-            onChange={handleImageChange}
-            onClear={() => clearField("image")}
-          /> */}
         </div>
         <div className={styles.inputsWrapper}>
-          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
-          {/* <FloatInput
-            name="description"           
-            value={formData.description}
-            label="Введите описание"
-            onChange={handleChange}
-            onClear={() => clearField("description")}
-          /> */}
+          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
+          <Controller name="description" control={control} rules={descriptionRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
+          } />
         </div>
       </div>
-      {/* <FloatInput
-        name="notes"        
-        value={formData.notes}
-        label="Добавьте заметку"
-        onChange={handleChange}
-        onClear={() => clearField("notes")}
-      /> */}
+      <Controller name="notes" control={control} rules={notesRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Добавьте заметку" error={fieldState.error?.message} onClear={() => resetField("notes")} />} />
       <Button variant="submit">Добавить</Button>
     </form>
   );

@@ -40,18 +40,11 @@ export const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
-      {/* <Controller name="link" control={control} rules={{
+      <Controller name="link" control={control} rules={{
         validate: linkRules
       }} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Ссылка" error={fieldState.error?.message} onClear={() => {
         resetField('link')
-      }} />} /> */}
-
-      <Controller name="link" control={control} rules={{
-        validate: linkRules
-      }} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Ссылка" error={fieldState.error?.message} onClear={() => {
-        resetField('link')
       }} />} />
-
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
@@ -64,33 +57,14 @@ export const Form = () => {
           }} render={({ field, fieldState }) => (
             <FloatInput {...field} variant="input" label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
           )} />
-          {/* <FloatInput
-            name="image"
-            type="url"
-            value={formData.image}
-            label="Ссылка на изображение"
-            onChange={handleImageChange}
-            onClear={() => clearField("image")}
-          /> */}
         </div>
         <div className={styles.inputsWrapper}>
           <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
-          {/* <FloatInput
-            name="description"           
-            value={formData.description}
-            label="Введите описание"
-            onChange={handleChange}
-            onClear={() => clearField("description")}
-          /> */}
+          <Controller name="description" control={control} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
+          } />
         </div>
       </div>
-      {/* <FloatInput
-        name="notes"        
-        value={formData.notes}
-        label="Добавьте заметку"
-        onChange={handleChange}
-        onClear={() => clearField("notes")}
-      /> */}
+      <Controller name="notes" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Добавьте заметку" error={fieldState.error?.message} onClear={() => resetField("notes")} />} />
       <Button variant="submit">Добавить</Button>
     </form>
   );

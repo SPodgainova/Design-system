@@ -6,6 +6,8 @@ import styles from "./styles.module.scss";
 
 import type { IFloatInputProps } from "./type";
 
+import cl from "classnames";
+
 const FloatInput = memo(
   ({
     variant,
@@ -32,7 +34,8 @@ const FloatInput = memo(
           />
         )}
         {variant === "textarea" && (
-          <textarea  rows={10}
+          <textarea
+            rows={3}
             {...inputProps}
             name={name}
             value={value}
@@ -45,8 +48,17 @@ const FloatInput = memo(
           />
         )}
 
-        <label>{label}</label>
-        {value && <Button variant="clear" onClick={onClear} />}
+        <label className={styles.areaLable}>{label}</label>
+        {value && (
+          <Button
+            variant="clear"
+            className={cl(
+              styles.clearButton,
+              variant === "textarea" && styles.clearAreaButton
+            )}
+            onClick={onClear}
+          />
+        )}
         {error && <span className={styles.error}>{error}</span>}
       </div>
     );

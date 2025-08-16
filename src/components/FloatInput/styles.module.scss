@@ -16,12 +16,12 @@
     border: 1px solid var(--color-light-grey);
     border-radius: 8px;
     padding: 10px;
+    padding-inline-end: 35px;
     outline: none;
     color: var(--color-text-primary);
     font-size: 14px;
     inline-size: 100%;
     block-size: 50px;
-    padding-inline-end: 35px;
   }
 
   & input:focus ~ label,
@@ -32,4 +32,11 @@
     font-size: 12px;
     background-color: var(--bg-block-dark);
   }
+}
+
+.error {
+  position: absolute;
+  bottom: -20px;
+  left: 10px;
+  font-size: 12px;
 }

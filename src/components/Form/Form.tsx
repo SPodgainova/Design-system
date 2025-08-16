@@ -1,108 +1,90 @@
-import { type ChangeEvent, type FormEvent } from "react";
-
-import useForm from "../../hooks/useForm";
-
+import { imageRules, linkRules, nameRules } from "../../validationRules";
 import Button from "../Button/Button";
 import FloatInput from "../FloatInput/FloatInput";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 import styles from "./styles.module.scss";
-import type { TData } from "./type";
-import useImageUpload from "../../hooks/useImageUpload";
+import type { IItemsForm } from "./type";
+
+import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 
 // to Do
 // для описания и заметок поменять инпут на textarea
 // добавить кнопки для ведомостей, проекта
 // драг дроп для аплоадера
 // валидация :
-// name 1 символ*
 // вес файла
-// ссылки (регулярки + конец ссылки для картинки)
 // кол-во сиволов в текстареа
-// кол-во сиволов в инпутах
-// вывод ошибки
 
 export const Form = () => {
-  const { formData, handleChange, clearField, resetForm } = useForm<TData>({
-    link: "",
-    image: "",
-    name: "",
-    description: "",
-    notes: "",
-  });
 
-  const {
-    handleChangeFile,
-    clearImageState,
-    getPreviewUrl,
-    handleUrlChange, 
-  } = useImageUpload();
+  const { control, handleSubmit, resetField, watch, formState: { errors }, reset } = useForm<IItemsForm>({
+    defaultValues: {
+      link: "",
+      image: "",
+      name: "",
+      description: "",
+      notes: "",
+    },
+    mode: "onChange"
+  })
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-    handleUrlChange(e.target.value);
+  const submit: SubmitHandler<IItemsForm> = (data) => {
+    console.log(data);
+    reset()
+
   };
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    console.log(formData);
-    resetForm();
-    clearImageState();
-  }
+  const imageLink = watch("image");
+  const isValidImgLink = !errors.image && imageLink; 
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <FloatInput
-        name="link"
-        type="url"
-        value={formData.link}
-        label="Введите ссылку"
-        onChange={handleChange}
-        onClear={() => clearField("link")}
-      />
+    <form onSubmit={handleSubmit(submit)} className={styles.form}>
+      <Controller name="link" control={control} rules={{
+        validate: linkRules
+      }} render={({ field, fieldState }) => <FloatInput {...field} label="Ссылка" error={fieldState.error?.message} onClear={() => {
+        resetField('link')
+      }} />} />
+
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
-            previewUrl={getPreviewUrl()}
-            onChange={handleChangeFile}
-            onClick={clearImageState}
+            previewUrl={isValidImgLink ? imageLink : null}
+            onFileUpload={() => resetField("image")}
+            onClear={() => resetField("image")}
           />
-          <FloatInput
+          <Controller name="image" control={control} rules={{
+            validate:  imageRules
+          }} render={({ field, fieldState }) => (
+            <FloatInput {...field} label="Ссылка на изображение" error={fieldState.error?.message} onClear={() => resetField("image")} />
+          )} />
+          {/* <FloatInput
             name="image"
             type="url"
             value={formData.image}
             label="Ссылка на изображение"
             onChange={handleImageChange}
             onClear={() => clearField("image")}
-          />
+          /> */}
         </div>
         <div className={styles.inputsWrapper}>
-          <FloatInput
-            name="name"
-            type="text"
-            value={formData.name}
-            label="Введите название"
-            onChange={handleChange}
-            onClear={() => clearField("name")}
-          />
-          <FloatInput
-            name="description"
-            type="text"
+          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
+          {/* <FloatInput
+            name="description"           
             value={formData.description}
             label="Введите описание"
             onChange={handleChange}
             onClear={() => clearField("description")}
-          />
+          /> */}
         </div>
       </div>
-      <FloatInput
-        name="notes"
-        type="text"
+      {/* <FloatInput
+        name="notes"        
         value={formData.notes}
         label="Добавьте заметку"
         onChange={handleChange}
         onClear={() => clearField("notes")}
-      />
+      /> */}
       <Button variant="submit">Добавить</Button>
     </form>
   );

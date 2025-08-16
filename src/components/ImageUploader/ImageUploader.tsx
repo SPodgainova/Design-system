@@ -1,24 +1,53 @@
 import cl from "classnames";
-
 import LoadIcon from "../LoadIcon/LoadIcon";
-
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
+import { memo, useEffect, useState, type ChangeEvent } from "react";
 
-const ImageUploader = ({
+const ImageUploader = memo(({
   previewUrl,
-  onChange,
-  onClick,
+  onFileUpload,
+  onClear,
 }: IImageUploaderProps) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    return () => {
+      if (file) {
+        const url = URL.createObjectURL(file);
+        URL.revokeObjectURL(url);
+      }
+    };
+  }, [file]);
+
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+
+    if (selectedFile?.type.startsWith("image/")) {
+      setFile(selectedFile);
+      onFileUpload();
+      setError("");
+    } else {
+      setError("Можно загружать только изображения!");
+      setFile(null);
+    }
+  };
+
+  const currentPreview = file ? URL.createObjectURL(file) : previewUrl;
+
   return (
     <>
       <div
-        className={cl(styles.container, previewUrl && styles.containerWithFile)}
+        className={cl(
+          styles.container,
+          currentPreview && styles.containerWithFile
+        )}
         style={{
-          background: `url(${previewUrl}) center/contain no-repeat`,
+          background: `url(${currentPreview}) center/contain no-repeat`,
         }}
       >
-        <div className={cl(styles.textBlock, previewUrl && styles.hidden)}>
+        <div className={cl(styles.textBlock, currentPreview && styles.hidden)}>
           <LoadIcon />
           <h3>
             Добавьте изображение по&nbsp;клику, перетяните файл или добавьте
@@ -32,18 +61,27 @@ const ImageUploader = ({
           className={styles.input}
           type="file"
           accept="image/*"
-          onChange={onChange}
+          onChange={handleChangeFile}
           multiple={false}
         />
       </div>
-      {previewUrl && (
+      {error && <span className={styles.error}>{error}</span>}
+      {currentPreview && (
         <div className={styles.btnContainer}>
           <button>Изменить изображение</button>
-          <button onClick={onClick}>Удалить</button>
+          <button
+            type="button"
+            onClick={() => {
+              setFile(null);
+              onClear();
+            }}
+          >
+            Удалить
+          </button>
         </div>
       )}
     </>
   );
-};
+})
 
 export default ImageUploader;

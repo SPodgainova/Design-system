@@ -3,7 +3,7 @@ import { useEffect, useState, type ChangeEvent } from "react";
 const useImageUpload = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>("");
-  const [error, setError] = useState("");
+  
 
   useEffect(() => {
     return () => {
@@ -14,29 +14,12 @@ const useImageUpload = () => {
     };
   }, [file]);
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-
-    if (selectedFile?.type.startsWith("image/")) {
-      setFile(selectedFile);
-      setFileUrl(null);
-      setError("");
-    } else {
-      setError("Можно загружать только изображения!");
-      setFile(null);
-    }
-  };
+  
 
   const getPreviewUrl = () => {
     if (file) return URL.createObjectURL(file);
     if (fileUrl) return fileUrl;
     return null;
-  };
-
-  const handleUrlChange = (url: string) => {
-    setFileUrl(url);
-    setFile(null);
-    setError("");
   };
 
   const clearImageState = () => {
@@ -50,8 +33,7 @@ const useImageUpload = () => {
     fileUrl,
     handleChangeFile,
     clearImageState,
-    getPreviewUrl,
-    handleUrlChange,
+    getPreviewUrl,   
     error,
   };
 };

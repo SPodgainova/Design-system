@@ -1,27 +1,22 @@
 import cl from "classnames";
 import { useDropzone } from "react-dropzone";
-import LoadIcon from "../LoadIcon/LoadIcon";
+import LoadIcon from "../icons/LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
-import { memo, useEffect, useState, type ChangeEvent } from "react";
+import { memo, type ChangeEvent } from "react";
 import DeleteIcon from "../icons/Delete/DeleteIcon";
+import useImageUpload from "../../hooks/useImageUpload";
 
 const ImageUploader = memo(
   ({ previewUrl, onFileUpload, onClear }: IImageUploaderProps) => {
-    const [file, setFile] = useState<File | null>(null);
-    const [error, setError] = useState("");
-    const [isDragActive, setIsDragActive] = useState(false);
-
-    useEffect(() => {
-      return () => {
-        if (file) {
-          const url = URL.createObjectURL(file);
-          URL.revokeObjectURL(url);
-        }
-      };
-    }, [file]);
-
-    const MAX_FILE_SIZE_MB = 5;
+    const {
+      file,
+      error,
+      handleFile,
+      isDragActive,
+      setIsDragActive,
+      handleClearFile,
+    } = useImageUpload(onFileUpload);
 
     const { getRootProps, getInputProps } = useDropzone({
       onDrop: (acceptedFiles) => {
@@ -41,30 +36,6 @@ const ImageUploader = memo(
       },
       multiple: false,
     });
-
-    const handleFile = (file: File | null) => {
-      if (!file) {
-        setFile(null);
-        return;
-      }
-
-      if (!file.type.startsWith("image/")) {
-        setFile(null);
-        onFileUpload();
-        setError("Можно загружать только изображения");
-        return;
-      }
-
-      const maxSize = MAX_FILE_SIZE_MB * 1024 * 1024; // Конвертируем MB в байты
-      if (file.size > maxSize) {
-        setError(`Максимальный размер файла — ${MAX_FILE_SIZE_MB} MB`);
-        setFile(null);
-        return;
-      }
-      setFile(file);
-      onFileUpload();
-      setError("");
-    };
 
     const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
       const selectedFile = e.target.files?.[0];
@@ -111,7 +82,7 @@ const ImageUploader = memo(
               className={styles.deleteBtn}
               type="button"
               onClick={() => {
-                setFile(null);
+                handleClearFile();
                 onClear();
               }}
             >

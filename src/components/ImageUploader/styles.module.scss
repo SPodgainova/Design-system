@@ -4,24 +4,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  min-inline-size: 282px;
   border: 2px dashed var(--color-light-grey);
   border-radius: 24px;
   padding: 23px;
-  transition: border-color 0.2s ease;
-  min-inline-size: 282px;
   block-size: 310px;
+  gap: 10px;
 }
 
 .container:hover,
 .dragActive {
-  border-color: var(--color-accent); 
+  border-color: var(--color-accent);
 }
 
 .containerWithFile {
-  z-index: 9999;
   border: none;
   background-color: var(--bg-block-dark);
+  z-index: 9999;
 }
 
 .textBlock {
@@ -39,11 +38,14 @@
 
 .input {
   position: absolute;
-  inset: 0;
+  top: 0px;
+  left: 0px;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  clip: auto !important;
+  clip-path: none !important;
   opacity: 0;
   cursor: pointer;
-  inline-size: 100%;
-  block-size: 100%;
 }
 
 .hidden {
@@ -51,8 +53,16 @@
   transition: 0.3s;
 }
 
+.deleteBtn {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+}
+
 .error {
-  color: var(--color-accent);
-  font-size: 12px;
   text-align: center;
+  font-size: 12px;
+  color: var(--color-accent);
+  position: absolute;
+  bottom: -24px;
 }

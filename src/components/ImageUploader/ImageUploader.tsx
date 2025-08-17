@@ -4,6 +4,7 @@ import LoadIcon from "../LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
 import { memo, useEffect, useState, type ChangeEvent } from "react";
+import DeleteIcn from "../icons/Delete/DeleteIcn";
 
 const ImageUploader = memo(
   ({ previewUrl, onFileUpload, onClear }: IImageUploaderProps) => {
@@ -19,6 +20,8 @@ const ImageUploader = memo(
         }
       };
     }, [file]);
+
+    const MAX_FILE_SIZE_MB = 5;
 
     const { getRootProps, getInputProps } = useDropzone({
       onDrop: (acceptedFiles) => {
@@ -40,14 +43,27 @@ const ImageUploader = memo(
     });
 
     const handleFile = (file: File | null) => {
-      if (file?.type.startsWith("image/")) {
-        setFile(file);
-        onFileUpload();
-        setError("");
-      } else {
-        setError("Можно загружать только изображения");
+      if (!file) {        
         setFile(null);
+        return;
       }
+
+      if (!file.type.startsWith("image/")) {
+        setFile(null);
+        onFileUpload();
+        setError("Можно загружать только изображения");
+        return;
+      }
+
+      const maxSize = MAX_FILE_SIZE_MB * 1024 * 1024; // Конвертируем MB в байты
+      if (file.size > maxSize) {
+        setError(`Максимальный размер файла — ${MAX_FILE_SIZE_MB} MB`);
+        setFile(null);
+        return;
+      }
+      setFile(file);
+      onFileUpload();
+      setError("");
     };
 
     const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,19 +106,20 @@ const ImageUploader = memo(
             onChange={handleChangeFile}
             multiple={false}
           />
+          {currentPreview && (
+            <button
+              className={styles.deleteBtn}
+              type="button"
+              onClick={() => {
+                setFile(null);
+                onClear();
+              }}
+            >
+              <DeleteIcn />
+            </button>
+          )}
+          {error && <span className={styles.error}>{error}</span>}
         </div>
-        {error && <span className={styles.error}>{error}</span>}
-        {currentPreview && (
-          <button
-            type="button"
-            onClick={() => {
-              setFile(null);
-              onClear();
-            }}
-          >
-            Удалить
-          </button>
-        )}
       </>
     );
   }

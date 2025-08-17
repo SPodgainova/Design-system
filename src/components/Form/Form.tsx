@@ -13,15 +13,9 @@ import {
   nameRules,
   notesRules,
 } from "./validationItemsRules";
-import DeleteIcn from "../icons/Delete/DeleteIcn";
 
-// to Do
-
+// to do
 // добавить кнопки для ведомостей, проекта
-// драг дроп для аплоадера
-// валидация :
-// вес файла
-// кол-во сиволов в текстареа
 
 export const Form = () => {
   const {

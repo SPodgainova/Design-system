@@ -4,7 +4,7 @@ import LoadIcon from "../LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
 import { memo, useEffect, useState, type ChangeEvent } from "react";
-import DeleteIcn from "../icons/Delete/DeleteIcn";
+import DeleteIcon from "../icons/Delete/DeleteIcon";
 
 const ImageUploader = memo(
   ({ previewUrl, onFileUpload, onClear }: IImageUploaderProps) => {
@@ -43,7 +43,7 @@ const ImageUploader = memo(
     });
 
     const handleFile = (file: File | null) => {
-      if (!file) {        
+      if (!file) {
         setFile(null);
         return;
       }
@@ -115,7 +115,7 @@ const ImageUploader = memo(
                 onClear();
               }}
             >
-              <DeleteIcn />
+              <DeleteIcon />
             </button>
           )}
           {error && <span className={styles.error}>{error}</span>}

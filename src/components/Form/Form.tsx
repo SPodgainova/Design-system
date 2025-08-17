@@ -60,7 +60,7 @@ export const Form = () => {
           )} />
         </div>
         <div className={styles.inputsWrapper}>
-          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Нименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
+          <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Наименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
           <Controller name="description" control={control} rules={descriptionRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
           } />
         </div>

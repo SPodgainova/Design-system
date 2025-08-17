@@ -43,7 +43,6 @@ export const Form = () => {
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
 
       <div className={styles.wrapper}>
-
         <div className={styles.inputsWrapper}>
           <Controller name="name" control={control} rules={nameRules} render={({ field, fieldState }) => <FloatInput {...field} variant="input" label="Наименование *" error={fieldState.error?.message} onClear={() => resetField("name")} />} />
           <Controller name="link" control={control} rules={{
@@ -53,7 +52,6 @@ export const Form = () => {
           }} />} />
           <Controller name="description" control={control} rules={descriptionRules} render={({ field, fieldState }) => <FloatInput {...field} variant="textarea" label="Введите описание" error={fieldState.error?.message} onClear={() => resetField("description")} />
           } />
-
         </div>
         <div className={styles.imageWrapper}>
           <ImageUploader

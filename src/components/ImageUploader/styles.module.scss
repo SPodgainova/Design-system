@@ -10,10 +10,11 @@
   padding: 23px;
   block-size: 310px;
   gap: 10px;
+}
 
-  &:hover {
-    border-color: var(--color-accent);
-  }
+.container:hover,
+.dragActive {
+  border-color: var(--color-accent);
 }
 
 .containerWithFile {
@@ -39,25 +40,29 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100%;
-  height: 100%;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  clip: auto !important;
+  clip-path: none !important;
   opacity: 0;
   cursor: pointer;
 }
 
-.btnContainer {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
 .hidden {
   opacity: 0;
-  transition: .3s;
+  transition: 0.3s;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 5%;
+  right: 10%;
 }
 
 .error {
   text-align: center;
   font-size: 12px;
   color: var(--color-accent);
+  position: absolute;
+  bottom: -24px;
 }

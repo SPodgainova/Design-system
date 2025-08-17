@@ -1,7 +1,7 @@
 import cl from "classnames";
 import { memo } from "react";
 
-import CloseIcon from "../CloseIcon/CloseIcon";
+import ClearIcon from "../icons/Clear/ClearIcon";
 
 import styles from "./styles.module.scss";
 
@@ -20,7 +20,7 @@ const Button = memo(
 
     return (
       <button className={buttonClass} onClick={onClick}>
-        {variant === "clear" && <CloseIcon />}
+        {variant === "clear" && <ClearIcon />}
         {children}
       </button>
     );

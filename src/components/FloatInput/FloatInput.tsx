@@ -48,7 +48,9 @@ const FloatInput = memo(
           />
         )}
 
-        <label className={styles.areaLable}>{label}</label>
+        <label htmlFor={name} className={styles.areaLable}>
+          {label}
+        </label>
         {value && (
           <Button
             variant="clear"

@@ -1,7 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
   border-radius: var(--block-radius);
   padding: var(--block-pd);
   background-color: var(--bg-block-dark);
@@ -19,13 +19,13 @@
 .imageWrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 32px;
 }
 
 .inputsWrapper {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
   inline-size: 100%;
 }
 

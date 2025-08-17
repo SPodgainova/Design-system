@@ -36,7 +36,8 @@
 
   & textarea {
     font-size: 12px; 
-    overflow: hidden;   
+    overflow: hidden;  
+    resize: none; 
   }
 
   & input:focus ~ label,

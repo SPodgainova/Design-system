@@ -1,87 +1,99 @@
 import cl from "classnames";
-import LoadIcon from "../LoadIcon/LoadIcon";
+import { useDropzone } from "react-dropzone";
+import LoadIcon from "../icons/LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
-import { memo, useEffect, useState, type ChangeEvent } from "react";
+import { memo, type ChangeEvent } from "react";
+import DeleteIcon from "../icons/Delete/DeleteIcon";
+import useImageUpload from "../../hooks/useImageUpload";
 
-const ImageUploader = memo(({
-  previewUrl,
-  onFileUpload,
-  onClear,
-}: IImageUploaderProps) => {
-  const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState("");
+const ImageUploader = memo(
+  ({ previewUrl, onFileUpload, onClear }: IImageUploaderProps) => {
+    const {
+      file,
+      error,
+      handleFile,
+      isDragActive,
+      setIsDragActive,
+      handleClearFile,
+    } = useImageUpload(onFileUpload);
 
-  useEffect(() => {
-    return () => {
-      if (file) {
-        const url = URL.createObjectURL(file);
-        URL.revokeObjectURL(url);
-      }
+    const { getRootProps, getInputProps } = useDropzone({
+      onDrop: (acceptedFiles) => {
+        setIsDragActive(false);
+        const file = acceptedFiles[0];
+        if (file) handleFile(file);
+      },
+      onDragEnter: () => {
+        setIsDragActive(true);
+        console.log(isDragActive);
+      },
+      onDragLeave: () => setIsDragActive(false),
+      noClick: true,
+      noKeyboard: true,
+      accept: {
+        "image/*": [".jpeg", ".jpg", ".png", ".webp", ".svg"],
+      },
+      multiple: false,
+    });
+
+    const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.[0];
+      handleFile(selectedFile || null);
     };
-  }, [file]);
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
+    const currentPreview = file ? URL.createObjectURL(file) : previewUrl;
 
-    if (selectedFile?.type.startsWith("image/")) {
-      setFile(selectedFile);
-      onFileUpload();
-      setError("");
-    } else {
-      setError("Можно загружать только изображения!");
-      setFile(null);
-    }
-  };
-
-  const currentPreview = file ? URL.createObjectURL(file) : previewUrl;
-
-  return (
-    <>
-      <div
-        className={cl(
-          styles.container,
-          currentPreview && styles.containerWithFile
-        )}
-        style={{
-          background: `url(${currentPreview}) center/contain no-repeat`,
-        }}
-      >
-        <div className={cl(styles.textBlock, currentPreview && styles.hidden)}>
-          <LoadIcon />
-          <h3>
-            Добавьте изображение по&nbsp;клику, перетяните файл или добавьте
-            ссылку на&nbsp;изображение ниже
-          </h3>
-          <p className={styles.description}>
-            Изображение должно быть в&nbsp;формате .jpg, .webp, .svg, или .png
-          </p>
-        </div>
-        <input
-          className={styles.input}
-          type="file"
-          accept="image/*"
-          onChange={handleChangeFile}
-          multiple={false}
-        />
-      </div>
-      {error && <span className={styles.error}>{error}</span>}
-      {currentPreview && (
-        <div className={styles.btnContainer}>
-          <button>Изменить изображение</button>
-          <button
-            type="button"
-            onClick={() => {
-              setFile(null);
-              onClear();
-            }}
+    return (
+      <>
+        <div
+          {...getRootProps()}
+          className={cl(
+            styles.container,
+            currentPreview && styles.containerWithFile,
+            isDragActive && styles.dragActive
+          )}
+          style={{
+            background: `url(${currentPreview}) center/contain no-repeat`,
+          }}
+        >
+          <div
+            className={cl(styles.textBlock, currentPreview && styles.hidden)}
           >
-            Удалить
-          </button>
+            <LoadIcon />
+            <h3>
+              Добавьте изображение по&nbsp;клику, перетяните файл или добавьте
+              ссылку на&nbsp;изображение ниже
+            </h3>
+            <p className={styles.description}>
+              Изображение должно быть в&nbsp;формате .jpg, .webp, .svg, или .png
+            </p>
+          </div>
+          <input
+            {...getInputProps()}
+            className={styles.input}
+            type="file"
+            accept="image/*"
+            onChange={handleChangeFile}
+            multiple={false}
+          />
+          {currentPreview && (
+            <button
+              className={styles.deleteBtn}
+              type="button"
+              onClick={() => {
+                handleClearFile();
+                onClear();
+              }}
+            >
+              <DeleteIcon />
+            </button>
+          )}
+          {error && <span className={styles.error}>{error}</span>}
         </div>
-      )}
-    </>
-  );
-})
+      </>
+    );
+  }
+);
 
 export default ImageUploader;

@@ -39,12 +39,7 @@ const FloatInput = memo(
             {...inputProps}
             name={name}
             value={value}
-            placeholder=" "
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-              }
-            }}
+            placeholder=" "   
           />
         )}
 

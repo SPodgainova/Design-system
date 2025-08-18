@@ -5,15 +5,16 @@ const DeleteIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
-      width="20"
-      height="20"
-      fill="none"
+      width="32"
+      height="32"
+      fill="#ffffff"
+      className={styles.frame}
     >
       <path
-        className={styles.frame}
+        
         d="M12 .5h76C94.351.5 99.5 5.649 99.5 12v76c0 6.351-5.149 11.5-11.5 11.5H12C5.649 99.5.5 94.351.5 88V12C.5 5.649 5.649.5 12 .5Z"
       />
-      <path
+      <path 
         stroke="#141B34"
         stroke-linecap="round"
         stroke-width="3"

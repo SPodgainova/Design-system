@@ -8,7 +8,13 @@ import styles from "./styles.module.scss";
 import type { IButtonProps } from "./type";
 
 const Button = memo(
-  ({ children, onClick, variant, className }: IButtonProps) => {
+  ({
+    children,
+    onClick,
+    variant,
+    className,
+    type = "button",
+  }: IButtonProps) => {
     const buttonClass = cl(
       styles.button,
       {
@@ -19,7 +25,7 @@ const Button = memo(
     );
 
     return (
-      <button className={buttonClass} onClick={onClick}>
+      <button type={type} className={buttonClass} onClick={onClick}>
         {variant === "clear" && <ClearIcon />}
         {children}
       </button>

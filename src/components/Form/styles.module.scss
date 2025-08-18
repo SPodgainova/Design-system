@@ -11,8 +11,9 @@
 .wrapper {
   display: flex;
   gap: 32px;
+  flex-direction: row; 
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }
 
@@ -29,8 +30,7 @@
   inline-size: 100%;
 }
 
-@media (max-width: 768px) {
-  .wrapper {
-    flex-direction: column;
-  }
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
 }

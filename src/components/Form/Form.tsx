@@ -47,6 +47,29 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <div className={styles.wrapper}>
+        <div className={styles.imageWrapper}>
+          <ImageUploader
+            previewUrl={isValidImgLink ? imageLink : null}
+            onFileUpload={() => resetField("image")}
+            onClear={() => resetField("image")}
+          />
+          <Controller
+            name="image"
+            control={control}
+            rules={{
+              validate: imageRules,
+            }}
+            render={({ field, fieldState }) => (
+              <FloatInput
+                {...field}
+                variant="input"
+                label="Ссылка на изображение"
+                error={fieldState.error?.message}
+                onClear={() => resetField("image")}
+              />
+            )}
+          />
+        </div>
         <div className={styles.inputsWrapper}>
           <Controller
             name="name"
@@ -95,29 +118,6 @@ export const Form = () => {
             )}
           />
         </div>
-        <div className={styles.imageWrapper}>
-          <ImageUploader
-            previewUrl={isValidImgLink ? imageLink : null}
-            onFileUpload={() => resetField("image")}
-            onClear={() => resetField("image")}
-          />
-          <Controller
-            name="image"
-            control={control}
-            rules={{
-              validate: imageRules,
-            }}
-            render={({ field, fieldState }) => (
-              <FloatInput
-                {...field}
-                variant="input"
-                label="Ссылка на изображение"
-                error={fieldState.error?.message}
-                onClear={() => resetField("image")}
-              />
-            )}
-          />
-        </div>
       </div>
       <Controller
         name="notes"
@@ -133,7 +133,12 @@ export const Form = () => {
           />
         )}
       />
-      <Button variant="submit">Добавить</Button>
+      <div className={styles.btnWrapper}>
+        <Button variant="submit" type="submit">
+          Добавить
+        </Button>
+        <Button variant="submit" onClick={() => reset()}>Очистить форму</Button>
+      </div>
     </form>
   );
 };

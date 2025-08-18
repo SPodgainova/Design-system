@@ -42,7 +42,6 @@ const FloatInput = memo(
             placeholder=" "   
           />
         )}
-
         <label htmlFor={name} className={styles.areaLable}>
           {label}
         </label>

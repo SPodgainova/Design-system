@@ -133,7 +133,12 @@ export const Form = () => {
           />
         )}
       />
-      <Button variant="submit">Добавить</Button>
+      <div className={styles.btnWrapper}>
+        <Button variant="submit" type="submit">
+          Добавить
+        </Button>
+        <Button variant="submit" onClick={reset}>Очистить форму</Button>
+      </div>
     </form>
   );
 };

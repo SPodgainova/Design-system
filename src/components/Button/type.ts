@@ -5,4 +5,5 @@ export interface IButtonProps {
   onClick?: () => void;
   children?: ReactNode;
   className?: string;
+  type?: "submit" | "button"
 }

@@ -39,15 +39,9 @@ const FloatInput = memo(
             {...inputProps}
             name={name}
             value={value}
-            placeholder=" "
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-              }
-            }}
+            placeholder=" "   
           />
         )}
-
         <label htmlFor={name} className={styles.areaLable}>
           {label}
         </label>

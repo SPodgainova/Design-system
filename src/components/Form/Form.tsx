@@ -47,6 +47,29 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <div className={styles.wrapper}>
+        <div className={styles.imageWrapper}>
+          <ImageUploader
+            previewUrl={isValidImgLink ? imageLink : null}
+            onFileUpload={() => resetField("image")}
+            onClear={() => resetField("image")}
+          />
+          <Controller
+            name="image"
+            control={control}
+            rules={{
+              validate: imageRules,
+            }}
+            render={({ field, fieldState }) => (
+              <FloatInput
+                {...field}
+                variant="input"
+                label="Ссылка на изображение"
+                error={fieldState.error?.message}
+                onClear={() => resetField("image")}
+              />
+            )}
+          />
+        </div>
         <div className={styles.inputsWrapper}>
           <Controller
             name="name"
@@ -91,29 +114,6 @@ export const Form = () => {
                 label="Введите описание"
                 error={fieldState.error?.message}
                 onClear={() => resetField("description")}
-              />
-            )}
-          />
-        </div>
-        <div className={styles.imageWrapper}>
-          <ImageUploader
-            previewUrl={isValidImgLink ? imageLink : null}
-            onFileUpload={() => resetField("image")}
-            onClear={() => resetField("image")}
-          />
-          <Controller
-            name="image"
-            control={control}
-            rules={{
-              validate: imageRules,
-            }}
-            render={({ field, fieldState }) => (
-              <FloatInput
-                {...field}
-                variant="input"
-                label="Ссылка на изображение"
-                error={fieldState.error?.message}
-                onClear={() => resetField("image")}
               />
             )}
           />

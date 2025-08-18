@@ -137,7 +137,7 @@ export const Form = () => {
         <Button variant="submit" type="submit">
           Добавить
         </Button>
-        <Button variant="submit" onClick={reset}>Очистить форму</Button>
+        <Button variant="submit" onClick={() => reset()}>Очистить форму</Button>
       </div>
     </form>
   );

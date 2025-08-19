@@ -48,6 +48,7 @@ export const Form = () => {
   };
 
   const imageLink = watch("image");
+  const isValidImgLink = !errors.image && imageLink;
 
   const handleChangeFile = useCallback((file: File) => {
     const validationResult = validateFile(file);
@@ -69,7 +70,7 @@ export const Form = () => {
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
-            previewUrl={imageLink}
+            previewUrl={isValidImgLink}
             onFileSelect={handleChangeFile}
             onClear={() => setValue("image", "")}
             error={errors.image?.message}

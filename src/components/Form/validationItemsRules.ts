@@ -54,10 +54,15 @@ const notesRules: RegisterOptions<IItemsForm, "notes"> = {
 };
 
 const validateFile = (file: File) => {
-  if (!file.type.startsWith("image/"))
+  console.log("Валидируем файл:", file);
+  if (!file.type.startsWith("image/")) {
+    console.log("Валидируем файл:", file);
     return "Можно загружать только изображения";
+  }
+
   if (file.size > 5 * 1024 * 1024) return "Максимальный размер 5MB";
-  return true
+  console.log("Файл валиден");
+  return true;
 };
 
 export {

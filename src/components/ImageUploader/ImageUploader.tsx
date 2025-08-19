@@ -7,7 +7,7 @@ import { memo, useState } from "react";
 import DeleteIcon from "../icons/Delete/DeleteIcon";
 
 const ImageUploader = memo(
-  ({ previewUrl, onFileSelect, onClear }: IImageUploaderProps) => {
+  ({ previewUrl, onFileSelect, onClear, error }: IImageUploaderProps) => {
     const [isDragActive, setIsDragActive] = useState(false);
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -22,13 +22,8 @@ const ImageUploader = memo(
       onDragLeave: () => setIsDragActive(false),
       noClick: true,
       noKeyboard: true,
-      accept: {
-        "image/*": [".jpeg", ".jpg", ".png", ".webp", ".svg"],
-      },
       multiple: false,
     });
-
-    console.log("previewUrl changed:", previewUrl);
 
     return (
       <>
@@ -73,7 +68,7 @@ const ImageUploader = memo(
               <DeleteIcon />
             </button>
           )}
-          {/* {error && <span className={styles.error}>{error}</span>} */}
+          {error && <span className={styles.error}>{error}</span>}
         </div>
       </>
     );

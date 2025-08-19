@@ -25,8 +25,8 @@ export const Form = () => {
     setValue,
     handleSubmit,
     resetField,
-    watch,
     formState: { errors },
+    watch,
     reset,
     setError,
   } = useForm<IItemsForm>({
@@ -40,14 +40,14 @@ export const Form = () => {
     mode: "onChange",
   });
 
-  
+  const imgUrlRef = useRef<string | null>(null);
+
   const submit: SubmitHandler<IItemsForm> = (data) => {
     console.log(data);
     reset();
   };
 
   const imageLink = watch("image");
-const imgUrlRef = useRef<string | null>(null);
 
   const handleChangeFile = useCallback((file: File) => {
     const validationResult = validateFile(file);
@@ -60,6 +60,7 @@ const imgUrlRef = useRef<string | null>(null);
       setValue("image", newUrl);
     } else {
       setError("image", { message: validationResult });
+      console.log("Ошибка:", validationResult);
     }
   }, []);
 
@@ -71,6 +72,7 @@ const imgUrlRef = useRef<string | null>(null);
             previewUrl={imageLink}
             onFileSelect={handleChangeFile}
             onClear={() => setValue("image", "")}
+            error={errors.image?.message}
           />
           <Controller
             name="image"
@@ -78,12 +80,11 @@ const imgUrlRef = useRef<string | null>(null);
             rules={{
               validate: imageRules,
             }}
-            render={({ field, fieldState }) => (
+            render={({ field }) => (
               <FloatInput
                 {...field}
                 variant="input"
                 label="Ссылка на изображение"
-                error={fieldState.error?.message}
                 onClear={() => resetField("image")}
               />
             )}

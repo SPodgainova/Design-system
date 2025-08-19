@@ -6,12 +6,16 @@
   padding: var(--block-pd);
   background-color: var(--bg-block-dark);
   max-inline-size: 750px;
+
+  & input[value^="blob:"] {
+    color: transparent;
+  }
 }
 
 .wrapper {
   display: flex;
   gap: 32px;
-  flex-direction: row; 
+  flex-direction: row;
   @media (max-width: 768px) {
     flex-direction: column-reverse;
   }

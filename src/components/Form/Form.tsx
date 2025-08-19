@@ -70,7 +70,7 @@ export const Form = () => {
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
-            previewUrl={isValidImgLink}
+            previewUrl={isValidImgLink ? imageLink : null}
             onFileSelect={handleChangeFile}
             onClear={() => setValue("image", "")}
             error={errors.image?.message}

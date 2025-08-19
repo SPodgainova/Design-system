@@ -12,7 +12,9 @@ import {
   linkRules,
   nameRules,
   notesRules,
+  validateFile,
 } from "./validationItemsRules";
+import { useCallback, useRef } from "react";
 
 // to do
 // добавить кнопки для ведомостей, проекта
@@ -20,11 +22,13 @@ import {
 export const Form = () => {
   const {
     control,
+    setValue,
     handleSubmit,
     resetField,
     watch,
     formState: { errors },
     reset,
+    setError,
   } = useForm<IItemsForm>({
     defaultValues: {
       link: "",
@@ -36,22 +40,37 @@ export const Form = () => {
     mode: "onChange",
   });
 
+  
   const submit: SubmitHandler<IItemsForm> = (data) => {
     console.log(data);
     reset();
   };
 
   const imageLink = watch("image");
-  const isValidImgLink = !errors.image && imageLink;
+const imgUrlRef = useRef<string | null>(null);
+
+  const handleChangeFile = useCallback((file: File) => {
+    const validationResult = validateFile(file);
+    const oldUrl = imgUrlRef.current;
+
+    if (validationResult === true) {
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      const newUrl = URL.createObjectURL(file);
+      imgUrlRef.current = newUrl;
+      setValue("image", newUrl);
+    } else {
+      setError("image", { message: validationResult });
+    }
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(submit)} className={styles.form}>
       <div className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <ImageUploader
-            previewUrl={isValidImgLink ? imageLink : null}
-            onFileUpload={() => resetField("image")}
-            onClear={() => resetField("image")}
+            previewUrl={imageLink}
+            onFileSelect={handleChangeFile}
+            onClear={() => setValue("image", "")}
           />
           <Controller
             name="image"
@@ -137,7 +156,9 @@ export const Form = () => {
         <Button variant="submit" type="submit">
           Добавить
         </Button>
-        <Button variant="submit" onClick={() => reset()}>Очистить форму</Button>
+        <Button variant="submit" onClick={() => reset()}>
+          Очистить форму
+        </Button>
       </div>
     </form>
   );

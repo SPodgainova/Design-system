@@ -1,5 +1,5 @@
 export interface IImageUploaderProps {
-  previewUrl: string | null;  
-  onFileUpload: () => void;
+  previewUrl: string | null;
+  onFileSelect: (file: File) => void;
   onClear: () => void;
 }

@@ -3,30 +3,21 @@ import { useDropzone } from "react-dropzone";
 import LoadIcon from "../icons/LoadIcon/LoadIcon";
 import styles from "./styles.module.scss";
 import type { IImageUploaderProps } from "./type";
-import { memo, type ChangeEvent } from "react";
+import { memo, useState } from "react";
 import DeleteIcon from "../icons/Delete/DeleteIcon";
-import useImageUpload from "../../hooks/useImageUpload";
 
 const ImageUploader = memo(
-  ({ previewUrl, onFileUpload, onClear }: IImageUploaderProps) => {
-    const {
-      file,
-      error,
-      handleFile,
-      isDragActive,
-      setIsDragActive,
-      handleClearFile,
-    } = useImageUpload(onFileUpload);
+  ({ previewUrl, onFileSelect, onClear }: IImageUploaderProps) => {
+    const [isDragActive, setIsDragActive] = useState(false);
 
     const { getRootProps, getInputProps } = useDropzone({
+      onDragEnter: () => {
+        setIsDragActive(true);
+      },
       onDrop: (acceptedFiles) => {
         setIsDragActive(false);
         const file = acceptedFiles[0];
-        if (file) handleFile(file);
-      },
-      onDragEnter: () => {
-        setIsDragActive(true);
-        console.log(isDragActive);
+        if (file) onFileSelect(file);
       },
       onDragLeave: () => setIsDragActive(false),
       noClick: true,
@@ -37,29 +28,23 @@ const ImageUploader = memo(
       multiple: false,
     });
 
-    const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-      const selectedFile = e.target.files?.[0];
-      handleFile(selectedFile || null);
-    };
-
-    const currentPreview = file ? URL.createObjectURL(file) : previewUrl;
+    console.log("previewUrl changed:", previewUrl);
 
     return (
       <>
         <div
           {...getRootProps()}
+          key={previewUrl}
           className={cl(
             styles.container,
-            currentPreview && styles.containerWithFile,
+            previewUrl && styles.containerWithFile,
             isDragActive && styles.dragActive
           )}
           style={{
-            background: `url(${currentPreview}) center/contain no-repeat`,
+            background: `url(${previewUrl}) center/contain no-repeat`,
           }}
         >
-          <div
-            className={cl(styles.textBlock, currentPreview && styles.hidden)}
-          >
+          <div className={cl(styles.textBlock, previewUrl && styles.hidden)}>
             <LoadIcon />
             <h3>
               Добавьте изображение по&nbsp;клику, перетяните файл или добавьте
@@ -74,22 +59,21 @@ const ImageUploader = memo(
             className={styles.input}
             type="file"
             accept="image/*"
-            onChange={handleChangeFile}
+            onChange={(e) => {
+              e.target.files?.[0] && onFileSelect(e.target.files[0]);
+            }}
             multiple={false}
           />
-          {currentPreview && (
+          {previewUrl && (
             <button
               className={styles.deleteBtn}
               type="button"
-              onClick={() => {
-                handleClearFile();
-                onClear();
-              }}
+              onClick={onClear}
             >
               <DeleteIcon />
             </button>
           )}
-          {error && <span className={styles.error}>{error}</span>}
+          {/* {error && <span className={styles.error}>{error}</span>} */}
         </div>
       </>
     );

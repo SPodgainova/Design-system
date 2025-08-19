@@ -27,7 +27,6 @@ const linkRules: RegisterOptions<IItemsForm, "link">["validate"] = (
 const imageRules: RegisterOptions<IItemsForm, "image">["validate"] = (
   value: string
 ) => {
-  if (!value) return true;
   try {
     const parsedUrl = new URL(value);
     const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
@@ -54,4 +53,18 @@ const notesRules: RegisterOptions<IItemsForm, "notes"> = {
   },
 };
 
-export { nameRules, imageRules, linkRules, descriptionRules, notesRules };
+const validateFile = (file: File) => {
+  if (!file.type.startsWith("image/"))
+    return "Можно загружать только изображения";
+  if (file.size > 5 * 1024 * 1024) return "Максимальный размер 5MB";
+  return true
+};
+
+export {
+  nameRules,
+  imageRules,
+  linkRules,
+  descriptionRules,
+  notesRules,
+  validateFile,
+};
